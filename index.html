@@ -860,10 +860,10 @@
       status: "Actively developed",
       short: "A four-wheel-drive mecanum robot that drives omnidirectionally, streams live 360° LiDAR, and builds a map of a room in real time.",
       body: [
-        "Cerberus is a fully custom autonomous ground vehicle — mechanical, electronics, embedded control, and a full-stack web app, all designed, wired, and coded end to end. Four 12V gearmotors drive 97mm mecanum wheels on a 2020-series aluminum chassis, letting it strafe, drive diagonally, and spin in place instead of turning like a car.",
-        "Power comes from dual 3S LiPo packs through four BTS7960 H-bridge drivers, with an LM2596 buck converter regulating 5V for the Orange Pi. Getting motor control working meant reverse-engineering the Pi's GPIO mapping across two chips, then writing a software-PWM loop over libgpiod, packaged as a systemd service so it drives the moment it powers on.",
-        "An RPLiDAR A1 streams a live 360° scan to a browser-based \"command console\" (Flask + Socket.IO) with keyboard and phone tilt-to-drive control, detecting objects out to 20 feet with under 0.1 seconds of response time. The SLAM stack is written from scratch — an early brute-force scan matcher froze the board, so I rewrote it around a KD-tree index, then upgraded again to scan-to-map matching with motion gating to cut drift.",
-        "Cerberus also tracks moving objects, raises a proximity alarm near obstacles, and runs a collision guard that vetoes any drive command into something too close — switchable live as Live, Track, and Ghost-trail radar views."
+        "Cerberus is a fully custom autonomous ground vehicle — mechanical, electronics, embedded control, and a full-stack web app from scratch. Four 12V gearmotors drive 97mm mecanum wheels on a 2020-series aluminum chassis with under 0.1 seconds of response time. This configuration gives the buggy full omnidirectional ability.",
+        "Power comes from a 3S LiPo pack through four BTS7960 H-bridge drivers, with an LM2596 buck converter regulating 5V for the Orange Pi.",
+        "An RPLiDAR A1 streams a live 360° scan to the web app for live obstacle detection, allowing the buggy to be driven even with no visuals on it. The LiDAR can detect objects out to 20 feet. The buggy runs a SLAM (Simultaneous Localization and Mapping) stack written from scratch to fully trace room layouts — though that proved a challenge on the Orange Pi's limited RAM.",
+        "Cerberus also tracks moving objects, raises a proximity alarm near obstacles, and runs a collision guard that vetoes any drive command into something too close."
       ],
       challenge: "The wheels didn't spin at all at first, and once they did, several spun the wrong direction. I had to troubleshoot each pin connection to the four motor controllers individually, using a multimeter to check the Orange Pi's pin outputs and confirm which physical pins actually mapped to which motor.",
       specs: [
@@ -871,7 +871,7 @@
         ["Sensing", "RPLiDAR A1, 360°, 20 ft range"],
         ["Response time", "< 0.1s"],
         ["Drivetrain", "4× mecanum wheels, 12V 550RPM gearmotors"],
-        ["Power", "Dual 3S LiPo, 4× BTS7960 H-bridge drivers, LM2596 buck"],
+        ["Power", "3S LiPo, 4× BTS7960 H-bridge drivers, LM2596 buck"],
         ["Control", "libgpiod software PWM, systemd service"],
         ["Software", "Flask + Socket.IO, custom SLAM (KD-tree, scan-to-map)"]
       ]
@@ -884,13 +884,15 @@
       status: "In progress",
       short: "A ground-up espresso machine rebuild with a custom PCB, an ESP32 brain, and firmware written entirely from scratch.",
       body: [
-        "Rather than modifying an existing controller board, this build starts from a bare espresso machine and adds a fully custom control system: an ESP32 (WROOM-32) at the center, driving a small SPI TFT touch display (ILI9341) through LVGL for the interface.",
-        "The PCB is being designed from scratch in KiCad, with components sourced from Digi-Key and Mouser for traceability. The firmware is also written entirely from scratch rather than adapted from an existing open-source espresso controller project, to keep the engineering fully my own.",
-        "The build is sequenced deliberately: mechanical repair of the machine first, then hardware and PCB design, then firmware, then full integration."
+        "This project takes a broken espresso machine and fully customizes it, adding a fully custom control system: an ESP32 (WROOM-32) at the center, driving a small SPI TFT touch display (ILI9341) through LVGL for the interface. Pressure and temperature sensors on the machine's boiler feed shot data back to the ESP32 for control and display, so adjustments are easy to see and make.",
+        "The build will also feature an integrated scale and shot timer, plus a mobile app to log each shot's data for future adjustments and performance tracking.",
+        "Finally, the machine will get a custom personalized design — engravings and a custom paint job on top of custom framing and panels for a unique look."
       ],
       specs: [
         ["Microcontroller", "ESP32 (WROOM-32)"],
         ["Display", "ILI9341 SPI TFT, driven by LVGL"],
+        ["Sensors", "Boiler pressure + temperature"],
+        ["Planned", "Integrated scale, shot timer, companion app"],
         ["PCB", "Custom design, KiCad"],
         ["Firmware", "Written from scratch"]
       ]
@@ -909,9 +911,10 @@
       status: "Prototype delivered",
       short: "A rope-wrapped enrichment device built for the North Carolina Zoo's tiger exhibit, combining a rolling track with a scent-dispensing ball.",
       body: [
-        "A team of four of us — Sarah Dicker, Paige Kessman, Kareem Abusalah, and me — were contracted by the North Carolina Zoo to design a tiger enrichment device engineered to support a 300+ lb load, on a $250 material budget across two design iterations.",
-        "My role was mechanical and hardware design. The frame is a PVC skeleton reinforced with metal tubing, wrapped in hemp rope so it reads as a toy rather than lab equipment. A quick-release pin lets the frame come apart to swap the ball, which rolls freely along a removable track rather than being fixed in place.",
-        "The ball is a 3D-printed shell housing an Arduino Nano and a solenoid valve that dispenses different essential oils as the tiger pushes it around. We tested the prototype outdoors with element and impact simulations before delivering it to the zoo; it hasn't been installed in the exhibit yet."
+        "A team of four of us — Sarah Dicker, Paige Kessman, Kareem Abusalah, and me — were contracted by the North Carolina Zoo to design a tiger enrichment device. Its goal is to provide mental, physical, and olfactory stimulation while encouraging natural behaviors and reducing stereotypic behaviors in captive tigers.",
+        "The device is made from PVC reinforced with metal tubing and wrapped in hemp rope, creating a durable and chewable exterior. A ball rolls along a track but cannot be removed by the tiger. We also developed a prototype scent ball containing an Arduino Nano, solenoid valve, and essential oil reservoirs for additional enrichment.",
+        "Testing showed the structure stayed functional after being soaked in water for more than five minutes and supported over 400 pounds without damage. It also partially passed drop testing, surviving eight drops without the ball. Scent habituation testing was still in progress, and the maintenance test failed because the quick-release pins were inconsistent and difficult to remove.",
+        "Overall, we successfully created a durable physical enrichment structure and an initial scent-ball prototype. Future work will focus on making the ball fully tiger-proof and improving the pin system so it can be replaced more easily."
       ],
       challenge: "Halfway through the project, we visited the NC Zoo. After seeing the actual enclosure and talking with the zookeepers, we had to change our entire design — which meant redoing all of our research and prototyping from scratch.",
       specs: [
@@ -919,7 +922,7 @@
         ["Team", "Sarah Dicker, Paige Kessman, Kareem Abusalah, Quinn Woolford"],
         ["My role", "Mechanical / hardware design"],
         ["Budget", "$250, across two design iterations"],
-        ["Load rating", "300+ lb"],
+        ["Load rating", "400+ lb, tested undamaged"],
         ["Frame", "PVC skeleton with metal tubing, wrapped in hemp rope"],
         ["Scent ball", "3D-printed shell, Arduino Nano + solenoid valve"]
       ]
