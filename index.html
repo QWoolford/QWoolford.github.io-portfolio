@@ -753,7 +753,6 @@
         <div class="cap-list">
           <span class="cap-item">Mechanical Design</span>
           <span class="cap-item">Embedded Systems</span>
-          <span class="cap-item">PCB Design</span>
           <span class="cap-item">Robotics Software</span>
           <span class="cap-item">Rapid Prototyping</span>
           <span class="cap-item">CAD</span>
@@ -1040,7 +1039,7 @@
       ? '<div class="overlay-video-section">' +
           '<div class="overlay-video-card">' +
             '<div class="overlay-video-frame" style="aspect-ratio:' + (p.videoRatio || '16 / 9') + '">' +
-              '<video class="overlay-video" poster="' + p.videoPoster + '" controls playsinline preload="metadata" aria-label="' + (p.videoLabel || ('Demonstration video of ' + p.title)) + '">' +
+              '<video class="overlay-video" poster="' + p.videoPoster + '" controls muted playsinline preload="metadata" aria-label="' + (p.videoLabel || ('Demonstration video of ' + p.title)) + '">' +
                 '<source src="' + p.video + '" type="video/mp4">' +
               '</video>' +
               '<button type="button" class="overlay-video-play" aria-label="Play video">' +
